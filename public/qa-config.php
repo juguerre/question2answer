@@ -34,10 +34,25 @@
 	define('QA_MYSQL_PORT', '3306');
 */
 
+	/*
 	define('QA_MYSQL_HOSTNAME', '127.0.0.1');
 	define('QA_MYSQL_USERNAME', 'your-mysql-username');
 	define('QA_MYSQL_PASSWORD', 'your-mysql-password');
 	define('QA_MYSQL_DATABASE', 'your-mysql-db-name');
+*/
+
+	define('QA_MYSQL_USERNAME', getenv("Q2ACOM_Q2ACOM_MYSQL_USER_NAME"));
+	define('QA_MYSQL_PASSWORD', getenv("Q2ACOM_Q2ACOM_MYSQL_USER_PASSWORD"));
+	$mysqlURL= getenv('Q2ACOM_Q2ACOM_MYSQL_CONNECTION_STRING');
+	# Prepare hostname, port and database variables from connection string
+	$hostname = strtok($mysqlURL, ":");
+	$port_db = strtok(":");
+	$port = strtok($port_db,"/");
+	$database = strtok("/");
+	
+	define('QA_MYSQL_HOSTNAME', $hostname);
+	define('QA_MYSQL_PORT', $port);
+	define('QA_MYSQL_DATABASE', $database);
 
 /*
 	Ultra-concise installation instructions:
